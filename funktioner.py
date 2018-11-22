@@ -3,6 +3,7 @@ def LindIter(System, N):
     # Insert your code here
     LindenmayerString = ""
 
+    LindenmayerString = "aben"
 
     return LindenmayerString
 
