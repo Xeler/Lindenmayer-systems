@@ -1,7 +1,8 @@
 import math
 import numpy as np
-
 import matplotlib.pyplot as plt
+import time
+
 
 
 def LindIter(System, N):
@@ -43,8 +44,11 @@ def LindIter(System, N):
 def turtleGraph(LindenmayerString):
     # Insert your code here
 
-    turtleCommands = np.array([])
+    turtleCommands = np.zeros(len(LindenmayerString))
 
+
+
+    l = len(LindenmayerString)
     
     if LindenmayerString.count("S"):
         #Koch
@@ -55,30 +59,43 @@ def turtleGraph(LindenmayerString):
             c = c/4
             skalering *= 1/3
 
-        for b in LindenmayerString:
+        for i, b in enumerate(LindenmayerString):
+            if i%1000==0:
+                #\r = carriage return. Uden newline overskrives den forgående linje, og giver effekten af en dynamisk loading bar
+                print("Progress: [{}{}]".format("-" * int(50 * i/l), " " * (50 - int(50 * i/l))), end="\r")
             if b=="L":
-                turtleCommands = np.append(turtleCommands, math.pi/3)
+                turtleCommands[i] = math.pi/3
             elif b=="R":
-                turtleCommands = np.append(turtleCommands, -2*math.pi/3)
+                turtleCommands[i] = -2*math.pi/3
             else:
-                turtleCommands = np.append(turtleCommands, skalering)
-
+                turtleCommands[i] = skalering
+        print("Progress: [{}]".format("-" * 50))
     else:
         #Sierpiniski:
         c = len(LindenmayerString)
         skalering = 1
+        it = 0
         while c > 3:
+            it+=1
             c = c/3
             skalering *= 1/2
+        
+        #######super flot hack :^)
+        ##Sætter faktoren for vinklerne til -1 hvis iterationsantallet er 
+        it = -1 if it&1 else 1
 
-        for b in LindenmayerString:
+        for i, b in enumerate(LindenmayerString):
+            if i%1000==0:
+                #\r = carriage return. Uden newline overskrives den forgående linje, og giver effekten af en dynamisk loading bar
+                print("Progress: [{}{}]".format("-" * int(50 * i/l), " " * (50 - int(50 * i/l))), end="\r")
             if b=="L":
-                turtleCommands = np.append(turtleCommands, math.pi/3)
+                turtleCommands[i] = math.pi/3 * it
             elif b=="R":
-                turtleCommands = np.append(turtleCommands, -math.pi/3)
+                turtleCommands[i] = -math.pi/3 * it
             else:
-                turtleCommands = np.append(turtleCommands, skalering)        
-
+                turtleCommands[i] = skalering
+    
+        print("Progress: [{}]".format("-" * 50))
     
     #L fortolkes som en venstre-drejning med vinklen 1/3*Pi
     #R fortolkes som en højre-drening med vinklen -2/3*Pi(Koch) eller -1/3*Pi(Sierpinski)
@@ -91,32 +108,49 @@ def turtleGraph(LindenmayerString):
 
 def turtlePlot(turtleCommands):
 
-    vectors = np.array([0, 0])
-    vectors.shape = (1,2)
-    rotation = np.array([1, 0])
-    rotation.shape = (1,2)
+    l = len(turtleCommands)
+
+    vectors = np.zeros((int(l/2)+2,2))
+    #rotation = np.zeros((int(l/2)+1,2))
+    rotation = np.array([1,0])
     index = 0
-    for index in range(len(turtleCommands)):
+    l = len(turtleCommands)
+    for index in range(l):
+        
+        
+        if index%1000==0:
+            print("Progress: [{}{}]".format("-" * int(50 * index/l), " " * (50 - int(50 * index/l))), end="\r")
+        
         if index%2==0:
             #linjesigment
-            newVector = np.add(vectors[len(vectors)-1], np.multiply(turtleCommands[index], rotation[len(rotation)-1]))
-
-            vectors = np.vstack((vectors, newVector))
+            newVector = np.add(vectors[int(index/2)], np.multiply(turtleCommands[index], rotation))
+            ##Det første punkt medregnes ikke!
+            vectors[int(index/2)+1] = newVector
         else:
             matrix = np.array([math.cos(turtleCommands[index]), -math.sin(turtleCommands[index]), math.sin(turtleCommands[index]), math.cos(turtleCommands[index])])
             matrix.shape = (2,2)
-            rotation = np.vstack((rotation, np.dot(rotation[len(rotation)-1], matrix)))
-        index+=1
+            rotation = np.dot(matrix, rotation)
+        
+        #?????
+        #index+=1
 
-    plt.show()
-    for index, vector in enumerate(vectors):
-        if(index==0):
-            continue
+    print("Progress: [{}]".format("-" * 50))
             
-        plt.plot([vectors[index-1][0], vector[0]], [vectors[index-1][1], vector[1]], 'ro-')
+    
+
+    
+    plt.plot(vectors[:,0], vectors[:,1], 'r-')
+
+    
+
+    #For Kock
+    plt.title('''Kock-kurven
+    Iteration k''')
+  
+    #For Sierpinski
+    plt.title('''Sierpinski-trekanten
+    Iteration k''')
+    
 
     plt.show()
-
-
-
-turtlePlot(turtleGraph(LindIter("Sierpinski", 8)))
+    
