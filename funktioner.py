@@ -15,7 +15,6 @@ def updateStrings(koch=False, siA=False, siB=False):
 
 def LindIter(System, N):
     global kochS, sierpSA, sierpSB
-    # Insert your code here
     if System=="Koch":
         LindenmayerString = "S"
         for i in range(N):
@@ -36,10 +35,6 @@ def LindIter(System, N):
                     newString += b
             LindenmayerString = newString
 
-
-#           LindenmayerString = LindenmayerString.replace("B", "ALBLA")
-#           LindenmayerString = LindenmayerString.replace("A", "BRARB")
-
     elif System != "":
         print("Vælg venligst Koch eller Sirpinski")                                
 
@@ -51,14 +46,11 @@ def LindIter(System, N):
 
 
 def turtleGraph(LindenmayerString):
-    # Insert your code here
 
     turtleCommands = np.zeros(len(LindenmayerString))
-
-
-
     l = len(LindenmayerString)
     
+
     if LindenmayerString.count("S"):
         #Koch
         c =  LindenmayerString.count("SLSRSLS")
@@ -120,7 +112,6 @@ def turtlePlot(turtleCommands):
     l = len(turtleCommands)
 
     vectors = np.zeros((int(l/2)+2,2))
-    #rotation = np.zeros((int(l/2)+1,2))
     rotation = np.array([1,0])
     index = 0
     l = len(turtleCommands)
@@ -139,9 +130,6 @@ def turtlePlot(turtleCommands):
             matrix = np.array([math.cos(turtleCommands[index]), -math.sin(turtleCommands[index]), math.sin(turtleCommands[index]), math.cos(turtleCommands[index])])
             matrix.shape = (2,2)
             rotation = np.dot(matrix, rotation)
-        
-        #?????
-        #index+=1
 
     print("Progress: [{}]".format("=" * 50))
             
@@ -149,16 +137,6 @@ def turtlePlot(turtleCommands):
 
     
     plt.plot(vectors[:,0], vectors[:,1], 'r-')
-    '''
-    if np.isin(1/3, turtleCommands, assume_unique=True):
-    #For Kock
-        plt.title('Kock-kurven'
-                  'Iteration')
-    else:
-    #For Sierpinski
-        plt.title('Sierpinski-trekanten' 
-                  'Iteration')
-    '''
 
     plt.show()
     

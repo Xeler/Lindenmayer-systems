@@ -5,42 +5,43 @@ from funktioner import LindIter, turtleGraph, turtlePlot, updateStrings, plt, np
 
 lindString = False
 
-
 while True:
     ##Mulige udvidelser:
     ##Lad brugeren definere sit eget system
     ##Beregn egenskaber af systemerne, så som f.eks. kurvelængde afhængigt af iteration-antal
 
-    print('''Hej med dig, her er dine muligheder:
-        1. Vælg en type af Lindenmayer system og et antal iterationer.
-        2. Generer diagrammer.
-        3. Info om tråden
-        4. Se Lindenmayersteng
-        5. Afslut.
+    print('''
+        Hello and welcome to our program. You now have the following options:
+        1. Choose a type of Lindenmayer system and a number of iterations
+        2. Vizualise the Lindenmayer string
+        3. Information about the Lindenmayer string
+        4. Print the Lindenmayer string
+        5. Quit and exit the program
     ''')
-    svar = input("Hvad ønsker du at gøre? ")
+    svar = input("What do you wish to do? ")
 
     if svar == "1":
-        system = input('''Vælg venligst et system:
+        system = input('''These are your options:
             1. Koch curve
-            2. Sierpinski triangle
-        ''')
+            2. Sierpinski triangle \n
+Please choose a system: ''')
         if system!="1" and system != "2":
-            print("Vælg venligst et tal mellem 1 & 2")
+            print("Please choose either option 1 or option 2")
             continue
 
-        N = input("Angiv det ønskede antal iterationer ")
+        N = input("How many iterations do you want? ")
 
         ##11 er max iterationer for koch
         if int(N) > 11 and system=="1":
-            confirm = input('''Det ønskede antal iterationer {:i} spås at tage for lang tid at genere. \n
-            Er du sikker på at du vil fortsætte? (Y)''')
+            confirm = input('''The selected amount of iterations will take a long time to generate. \n
+            Do you want to continue anyway? (Y)''')
             if confirm.upper()!="Y":
                 continue
-        
+            print("Wonderful! Be patient - the visualization will be worth your wait" )
+                
         if int(N) > 14 and system=="2":
-            confirm = input('''Det ønskede antal iterationer {:i} spås at tage for lang tid at genere. \n
-            Er du sikker på at du vil fortsætte? (Y)''')
+            confirm = input('''The selected amount of iterations will take a long time to generate. \n
+            Do you want to continue anyway? (Y)''')
             if confirm.upper()!="Y":
                 continue
         #
@@ -52,30 +53,30 @@ while True:
             lindString = LindIter("Sierpinski", int(N))
         else:
             continue
-       
+
 
     if svar == "2":
         if not lindString:
-            print("Du har endnu ikke genereret et system\n")
+            print("You have not generated a system yet")
             continue
         
         
         if system=="1":
-             plt.title("Kock-kurven. Iterationer: "+ N)
-             #plt.xlim([0,1])
-             #plt.ylim([-0.25,0.55])
+             plt.title("Kock curven. Iterations: "+ N)
+             plt.xlim([0,1])
+             plt.ylim([-0.25,0.55])
              turtlePlot(turtleGraph(lindString))
             
         if system=="2":
-             plt.title("Sierpinski-kurven. Iterationer: "+ N)
-             #plt.xlim([0,1])
-             #plt.ylim([-0.1,1])
+             plt.title("Sierpinski triangle. Iterations: "+ N)
+             plt.xlim([0,1])
+             plt.ylim([-0.1,1])
              turtlePlot(turtleGraph(lindString))
 
 
     if svar == "3":
         if not lindString:
-            print("Du har endnu ikke genereret et system\n")
+            print("You have not generated a system yet")
             continue
         t5s = time.time()
         t5s = time.time() - t5s
@@ -83,17 +84,17 @@ while True:
         graph = turtleGraph(lindString)
         t5g = time.time() - t5g
         t5p = time.time()
-        print(N + " Iterationer af valgt system"''' 
+        print("Timetable for " + N + " iteration(s) of the choosen system"'''  
             String generation: {}
             Graph generation: {}
             Plot generation: {}
         '''.format(t5s, t5g, time.time() - t5p))
 
-        print("Længden af tråden er: ",np.sum(graph[::2]))
+        print("The length of the string is: ",np.sum(graph[::2]))
         
     if svar=="4" :
         if not lindString:
-            print("Du har endnu ikke genereret et system\n")
+            print("You have not generated a system yet\n")
             continue
         if system=="1":
             print(LindIter("Koch", int(N)))
@@ -104,13 +105,11 @@ while True:
         
     
     if svar=="5" :
-        print("Du har valgt at afslutte. Tak for denne gang.")
+        print("You have chosen to quit and the program will now close itself. Thank you and have a nice day.")
         break
-    '''
-    if svar != "":
-        print("skriv noget fister") 
-    '''
+    
 
+        
 
     if svar == "9":
         #Hemmelig menu til at omdefinere lindIter strenge:
@@ -128,4 +127,5 @@ while True:
             updateStrings(False, newSA, newSB)
         elif system=="3":
             updateStrings("SLSRSLS", "BRARB", "ALBLA")
+
 
