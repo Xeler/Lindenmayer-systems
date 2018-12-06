@@ -36,14 +36,14 @@ while True:
 
         ##11 er max iterationer for koch
         if int(N) > 11 and system=="1":
-            confirm = input('''Det ønskede antal iterationer {:i} spås at tage for lang tid at genere. \n
-            Er du sikker på at du vil fortsætte? (Y)''')
+            confirm = input('''Det ønskede antal iterationer {}, spås at tage for lang tid at genere. \n
+            Er du sikker på at du vil fortsætte? (Y)'''.format(N))
             if confirm.upper()!="Y":
                 continue
         
         if int(N) > 14 and system=="2":
-            confirm = input('''Det ønskede antal iterationer {:i} spås at tage for lang tid at genere. \n
-            Er du sikker på at du vil fortsætte? (Y)''')
+            confirm = input('''Det ønskede antal iterationer {} spås at tage for lang tid at genere. \n
+            Er du sikker på at du vil fortsætte? (Y)'''.format(N))
             if confirm.upper()!="Y":
                 continue
         #
@@ -114,7 +114,7 @@ while True:
             print(LindIter("Koch", int(N)))
     
         elif system=="2":
-            print(LindIter("Sierpinski", int(N)))
+            print(LindIter("Sierpinski", int(N)),"\n")
 
         
     
