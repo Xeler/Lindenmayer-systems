@@ -1,13 +1,10 @@
 
-import numpy as np
-from funktioner import *
+from funktioner import LindIter, turtleGraph, turtlePlot, updateStrings, plt, np, time
 
-
-import math
-import time
 
 
 lindString = False
+
 
 while True:
     ##Mulige udvidelser:
@@ -19,7 +16,7 @@ while True:
         2. Generer diagrammer.
         3. Info om tråden
         4. Se Lindenmayersteng
-        5. Afslut. 
+        5. Afslut.
     ''')
     svar = input("Hvad ønsker du at gøre? ")
 
@@ -55,19 +52,7 @@ while True:
             lindString = LindIter("Sierpinski", int(N))
         else:
             continue
-        t5s = time.time()
-        t5s = time.time() - t5s
-        t5g = time.time()
-        graph = turtleGraph(lindString)
-        t5g = time.time() - t5g
-        t5p = time.time()
-        
-        print('''Tiden for generation af valgte sting: 
-            String generation: {}
-            Graph generation: {}
-            Plot generation: {}
-        '''.format(t5s, t5g, time.time() - t5p))
-
+       
 
     if svar == "2":
         if not lindString:
@@ -77,14 +62,14 @@ while True:
         
         if system=="1":
              plt.title("Kock-kurven. Iterationer: "+ N)
-             plt.xlim([0,1])
-             plt.ylim([-0.25,0.55])
+             #plt.xlim([0,1])
+             #plt.ylim([-0.25,0.55])
              turtlePlot(turtleGraph(lindString))
             
         if system=="2":
              plt.title("Sierpinski-kurven. Iterationer: "+ N)
-             plt.xlim([0,1])
-             plt.ylim([-0.1,1])
+             #plt.xlim([0,1])
+             #plt.ylim([-0.1,1])
              turtlePlot(turtleGraph(lindString))
 
 
@@ -126,6 +111,21 @@ while True:
         print("skriv noget fister") 
     '''
 
-    if svar == "Q":
-        break
+
+    if svar == "9":
+        #Hemmelig menu til at omdefinere lindIter strenge:
+        print('''Velkommen til den hemmelige menu for at bryde reglerne. Vælg et system:''')
+        system = input('''1. Koch
+        2. Sierpinski
+        3. Reset til originalværdier for begge strenge ''')
+
+        if system=="1":
+            newS = input("Indskriv din nye regel for koch: (Org er \"SLSRSLS\") ")
+            updateStrings(newS)
+        elif system=="2":
+            newSA = input("Indskriv din nye regel for A: (Org er \"BRARB\") ")
+            newSB = input("Indskriv din nye regel for B: (Org er \"ALBLA\") ")
+            updateStrings(False, newSA, newSB)
+        elif system=="3":
+            updateStrings("SLSRSLS", "BRARB", "ALBLA")
 
