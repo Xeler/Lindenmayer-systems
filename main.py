@@ -12,13 +12,14 @@ lindString = False
 while True:
     ##Mulige udvidelser:
     ##Lad brugeren definere sit eget system
-    ##Beregn egenskaber af systemerne, så som f.eks. kurvelængde afhængigt af iterationantal
+    ##Beregn egenskaber af systemerne, så som f.eks. kurvelængde afhængigt af iteration-antal
 
     print('''Hej med dig, her er dine muligheder:
         1. Vælg en type af Lindenmayer system og et antal iterationer.
         2. Generer diagrammer.
-        3. Tiden det tager at generere system-string for Koch systemer
-        4. Afslut. 
+        3. Info om tråden
+        4. Se Lindenmayersteng
+        5. Afslut. 
     ''')
     svar = input("Hvad ønsker du at gøre? ")
 
@@ -42,7 +43,7 @@ while True:
         graph = turtleGraph(lindString)
         t5g = time.time() - t5g
         t5p = time.time()
-        turtlePlot(graph)
+        
         print('''Tiden for generation af valgte sting: 
             String generation: {}
             Graph generation: {}
@@ -55,32 +56,57 @@ while True:
             print("Du har endnu ikke genereret et system")
             continue
         
-        turtlePlot(turtleGraph(lindString))
+        
+        if system=="1":
+             plt.title("Kock-kurven. Iterationer: "+ N)
+             plt.xlim([0,1])
+             plt.ylim([-0.25,0.55])
+             turtlePlot(turtleGraph(lindString))
+            
+        if system=="2":
+             plt.title("Sierpinski-kurven. Iterationer: "+ N)
+             plt.xlim([0,1])
+             plt.ylim([-0.1,1])
+             turtlePlot(turtleGraph(lindString))
 
 
     if svar == "3":
-
+        if not lindString:
+            print("Du har endnu ikke genereret et system")
+            continue
         t5s = time.time()
-        lindString = LindIter("Koch", 7)
         t5s = time.time() - t5s
         t5g = time.time()
         graph = turtleGraph(lindString)
         t5g = time.time() - t5g
         t5p = time.time()
-        turtlePlot(graph)
-        print('''7 it 
+        print(N + " Iterationer af valgt system"''' 
             String generation: {}
             Graph generation: {}
             Plot generation: {}
         '''.format(t5s, t5g, time.time() - t5p))
+
+        print("Længden af tråden er: ",np.sum(graph[::2]))
         
     if svar=="4" :
+        if not lindString:
+            print("Du har endnu ikke genereret et system")
+            continue
+        if system=="1":
+            print(LindIter("Koch", int(N)))
+    
+        elif system=="2":
+            print(LindIter("Sierpinski", int(N)))
+
+        
+    
+    if svar=="5" :
         print("Du har valgt at afslutte. Tak for denne gang.")
         break
-
+    '''
     if svar != "":
-        print("skriv noget fister")
-
+        print("skriv noget fister") 
+    '''
 
     if svar == "Q":
         break

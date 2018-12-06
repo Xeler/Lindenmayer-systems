@@ -103,7 +103,7 @@ def turtleGraph(LindenmayerString):
 
     #outputtet burde se sådan her ud: [l1,v1,l2,v2,...,ln,vn]
 
-
+    
     return turtleCommands
 
 def turtlePlot(turtleCommands):
@@ -140,17 +140,16 @@ def turtlePlot(turtleCommands):
 
     
     plt.plot(vectors[:,0], vectors[:,1], 'r-')
-
-    
-
+    '''
+    if np.isin(1/3, turtleCommands, assume_unique=True):
     #For Kock
-    plt.title('''Kock-kurven
-    Iteration k''')
-  
+        plt.title('Kock-kurven'
+                  'Iteration')
+    else:
     #For Sierpinski
-    plt.title('''Sierpinski-trekanten
-    Iteration k''')
-    
+        plt.title('Sierpinski-trekanten' 
+                  'Iteration')
+    '''
 
     plt.show()
     
