@@ -100,7 +100,7 @@ Please choose a system: ''')
             print(LindIter("Koch", int(N)))
     
         elif system=="2":
-            print(LindIter("Sierpinski", int(N)))
+            print(LindIter("Sierpinski", int(N)),"\n")
 
         
     
