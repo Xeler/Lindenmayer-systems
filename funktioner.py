@@ -3,14 +3,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
+kochS = "SLSRSLS"
+sierpSA = "BRARB"
+sierpSB = "ALBLA"
 
+def updateStrings(koch=False, siA=False, siB=False):
+    global kochS, sierpSA, sierpSB
+    kochS = koch or kochS
+    sierpSA = siA or sierpSA
+    sierpSB = siB or sierpSB
 
 def LindIter(System, N):
+    global kochS, sierpSA, sierpSB
     # Insert your code here
     if System=="Koch":
         LindenmayerString = "S"
         for i in range(N):
-            LindenmayerString = LindenmayerString.replace("S", "SLSRSLS")
+            LindenmayerString = LindenmayerString.replace("S", kochS)
 
 
     elif System=="Sierpinski":
@@ -20,9 +29,9 @@ def LindIter(System, N):
             newString = ""
             for b in LindenmayerString:
                 if b == "A":
-                    newString += "BRARB"
+                    newString += sierpSA
                 elif b == "B":
-                    newString += "ALBLA"
+                    newString += sierpSB
                 else:
                     newString += b
             LindenmayerString = newString
