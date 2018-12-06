@@ -62,14 +62,14 @@ def turtleGraph(LindenmayerString):
         for i, b in enumerate(LindenmayerString):
             if i%1000==0:
                 #\r = carriage return. Uden newline overskrives den forgående linje, og giver effekten af en dynamisk loading bar
-                print("Progress: [{}{}]".format("-" * int(50 * i/l), " " * (50 - int(50 * i/l))), end="\r")
+                print("Progress: [{}{}]".format("=" * int(50 * i/l), " " * (50 - int(50 * i/l))), end="\r")
             if b=="L":
                 turtleCommands[i] = math.pi/3
             elif b=="R":
                 turtleCommands[i] = -2*math.pi/3
             else:
                 turtleCommands[i] = skalering
-        print("Progress: [{}]".format("-" * 50))
+        print("Progress: [{}]".format("=" * 50))
     else:
         #Sierpiniski:
         c = len(LindenmayerString)
@@ -87,7 +87,7 @@ def turtleGraph(LindenmayerString):
         for i, b in enumerate(LindenmayerString):
             if i%1000==0:
                 #\r = carriage return. Uden newline overskrives den forgående linje, og giver effekten af en dynamisk loading bar
-                print("Progress: [{}{}]".format("-" * int(50 * i/l), " " * (50 - int(50 * i/l))), end="\r")
+                print("Progress: [{}{}]".format("=" * int(50 * i/l), " " * (50 - int(50 * i/l))), end="\r")
             if b=="L":
                 turtleCommands[i] = math.pi/3 * it
             elif b=="R":
@@ -95,7 +95,7 @@ def turtleGraph(LindenmayerString):
             else:
                 turtleCommands[i] = skalering
     
-        print("Progress: [{}]".format("-" * 50))
+        print("Progress: [{}]".format("=" * 50))
     
     #L fortolkes som en venstre-drejning med vinklen 1/3*Pi
     #R fortolkes som en højre-drening med vinklen -2/3*Pi(Koch) eller -1/3*Pi(Sierpinski)
@@ -119,7 +119,7 @@ def turtlePlot(turtleCommands):
         
         
         if index%1000==0:
-            print("Progress: [{}{}]".format("-" * int(50 * index/l), " " * (50 - int(50 * index/l))), end="\r")
+            print("Progress: [{}{}]".format("=" * int(50 * index/l), " " * (50 - int(50 * index/l))), end="\r")
         
         if index%2==0:
             #linjesigment
@@ -134,7 +134,7 @@ def turtlePlot(turtleCommands):
         #?????
         #index+=1
 
-    print("Progress: [{}]".format("-" * 50))
+    print("Progress: [{}]".format("=" * 50))
             
     
 

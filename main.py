@@ -28,14 +28,32 @@ while True:
             1. Koch curve
             2. Sierpinski triangle
         ''')
-        
+        if system!="1" and system != "2":
+            print("Vælg venligst et tal mellem 1 & 2")
+            continue
+
         N = input("Angiv det ønskede antal iterationer ")
+
+        ##11 er max iterationer for koch
+        if int(N) > 11 and system=="1":
+            confirm = input('''Det ønskede antal iterationer {:i} spås at tage for lang tid at genere. \n
+            Er du sikker på at du vil fortsætte? (Y)''')
+            if confirm.upper()!="Y":
+                continue
+        
+        if int(N) > 14 and system=="2":
+            confirm = input('''Det ønskede antal iterationer {:i} spås at tage for lang tid at genere. \n
+            Er du sikker på at du vil fortsætte? (Y)''')
+            if confirm.upper()!="Y":
+                continue
+        #
+
+
         if system=="1":
             lindString = LindIter("Koch", int(N))
         elif system=="2":
             lindString = LindIter("Sierpinski", int(N))
         else:
-            print("Vælg venligst et tal mellem 1 & 2")
             continue
         t5s = time.time()
         t5s = time.time() - t5s
@@ -53,7 +71,7 @@ while True:
 
     if svar == "2":
         if not lindString:
-            print("Du har endnu ikke genereret et system")
+            print("Du har endnu ikke genereret et system\n")
             continue
         
         
@@ -72,7 +90,7 @@ while True:
 
     if svar == "3":
         if not lindString:
-            print("Du har endnu ikke genereret et system")
+            print("Du har endnu ikke genereret et system\n")
             continue
         t5s = time.time()
         t5s = time.time() - t5s
@@ -90,7 +108,7 @@ while True:
         
     if svar=="4" :
         if not lindString:
-            print("Du har endnu ikke genereret et system")
+            print("Du har endnu ikke genereret et system\n")
             continue
         if system=="1":
             print(LindIter("Koch", int(N)))
